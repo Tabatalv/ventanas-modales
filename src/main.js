@@ -19,6 +19,39 @@ document.querySelector('#app').innerHTML = `
 		</p>
     </div>
 		<div class="overlay hidden"></div>
-`
+`;
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnsOpenModal = document.querySelectorAll('.show-modal');
 
-setupCounter(document.querySelector('#counter'))
+//definimos la funcion close modal
+const closeModal = function () {
+  modal.classList.add('hidden');
+  overlay.classList.add('hidden');
+};
+
+//definimos la funcion open modal
+const openModal = function () {
+  modal.classList.remove('hidden');
+  overlay.classList.remove('hidden');
+};
+
+
+// asociamos la funcion openModal a cada  uno de los botones
+
+btnsOpenModal.forEach((btn) => {
+  btn.addEventListener('click', openModal);
+});
+
+btnCloseModal.addEventListener('click', closeModal);
+overlay.addEventListener('click', closeModal);
+
+
+const handleKeyDown = (e) => {
+	console.log(e, e.key)
+  if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+	closeModal();
+  }
+}
+document.addEventListener('keydown', handleKeyDown)
